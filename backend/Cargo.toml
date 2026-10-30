@@ -1,0 +1,71 @@
+[package]
+name = "ryu-decks"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+description = "Ryu hardware control-deck sidecar: drives Elgato Stream Deck, Ulanzi D200, Work Louder Creator Micro 2 / Codex Micro and Mirabox / Ajazz decks over USB HID and Loupedeck / Razer Stream Controllers over USB serial, paints key faces and turns key presses into Ryu app events and agent turns."
+repository = "https://github.com/amajorai/ryu"
+
+[[bin]]
+name = "ryu-decks"
+path = "src/main.rs"
+
+[lib]
+name = "ryu_decks"
+path = "src/lib.rs"
+
+[dependencies]
+ryu-sidecar-runtime = { path = "../crates/core/sidecar-runtime", version = "0.5.0" }
+# Raises this app's declared `hook_events` (a key press, a dial turn) so workflows
+# and plugin hooks can react. Best-effort; it no-ops when Core did not spawn us.
+ryu-app-events = { path = "../crates/core/app-events", version = "0.5.0" }
+anyhow = "1"
+async-trait = "0.1"
+axum = "0.7"
+base64 = "0.22"
+chrono = "0.4"
+# USB HID transport. No default features: on Linux the pure-Rust hidraw backend
+# with `basic-udev` needs no libudev headers, so every workspace build (CI included)
+# compiles without a new system package. macOS and Windows build hidapi's bundled C
+# backend. `macos-shared-device` opens devices non-exclusively, so a keypad that also
+# enumerates as a keyboard opens without Input Monitoring and can coexist with the
+# vendor's own app.
+hidapi = { version = "2.6.7", default-features = false, features = ["linux-native-basic-udev", "macos-shared-device"] }
+# Loupedeck and Razer Stream Controllers are USB serial (CDC ACM) devices, not HID.
+# No default features: without libudev, Linux enumeration reads sysfs, so the
+# build still needs no system package.
+serialport = { version = "4", default-features = false }
+# Key faces arrive as PNG and leave as the JPEG/BMP/PNG each device expects.
+# Class-compliant USB MIDI decks (the Novation Launchpads): ALSA's sequencer on
+# Linux (libasound.so.2 at run time; alsa 0.9 is already in the workspace lock),
+# CoreMIDI on macOS and WinMM on Windows.
+midir = "0.10"
+image = { version = "0.25", default-features = false, features = ["png", "jpeg", "bmp"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+rusqlite = { version = "0.40.0", features = ["bundled"] }
+# Vial keyboards store their layout as XZ-compressed JSON. Pure Rust, decoder only.
+lzma-rust2 = { version = "0.15", default-features = false, features = ["std", "xz"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tokio = { version = "1", features = ["full"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+# The Ulanzi D200 takes its whole button grid as one zip archive.
+zip = { version = "9", default-features = false, features = ["deflate-flate2-zlib-rs"] }
+
+# The MacBook Pro Touch Bar: AppKit on the main thread, plus the private
+# DFRFoundation calls (looked up with dlopen/dlsym) that put a button in the
+# Control Strip.
+[target.'cfg(target_os = "macos")'.dependencies]
+objc2 = "0.6"
+objc2-foundation = { version = "0.3", default-features = false, features = ["std", "NSArray", "NSData", "NSDate", "NSGeometry", "NSObject", "NSSet", "NSString", "NSTimer"] }
+objc2-app-kit = { version = "0.3", default-features = false, features = ["std", "NSApplication", "NSButton", "NSButtonCell", "NSCell", "NSColor", "NSControl", "NSCustomTouchBarItem", "NSImage", "NSImageCell", "NSResponder", "NSRunningApplication", "NSTouchBar", "NSTouchBarItem", "NSView", "objc2-core-foundation"] }
+
+# The Yamaha CC121MK2 goes silent when DTR drops, so its tty is told not to
+# drop DTR on close (HUPCL); the Touch Bar's dlopen/dlsym calls use it too.
+[target.'cfg(unix)'.dependencies]
+libc = "0.2"
+
+[dev-dependencies]
+tower = { version = "0.5", features = ["util"] }
