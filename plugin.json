@@ -1,0 +1,35 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "ryu.decks",
+  "version": "0.1.0",
+  "description": "Use a hardware control deck as Ryu keys. Connect an Elgato Stream Deck (Original, MK.2, Mini, XL, Neo, +, + XL, Studio or Pedal), the Stream Deck panel of a Corsair Galleon 100 SD keyboard, an Ulanzi D200, a Work Louder Creator Micro 2 or OpenAI Codex Micro, a Loupedeck or Razer Stream Controller, a Mirabox or Ajazz deck or one of their rebrands (Redragon, Womier, MagTran, Soomfon and more), an Infinitton iDisplay, an X-keys keypad or a Contour ShuttleXpress or ShuttlePro, a Griffin PowerMate or a VEC footpedal over USB, a Logitech MX Creative Keypad, MX Creative Dialpad or G13, the G-keys and LCD of a Logitech G15, G11, G510 or G110 keyboard, the G-keys and lights of a Logitech G915, G815 or G910 keyboard or the backlight of a G513 or G Pro, a Mountain DisplayPad, a Xencelabs Quick Keys, a Blackmagic DaVinci Resolve Speed Editor, Replay Editor or ATEM Micro Panel, a 203 Systems Mystrix, a Framework Laptop 16 RGB Macropad on the Companion firmware, an Adafruit MacroPad RP2040 on the Companion CircuitPython firmware, a Haute42 B16 on SurfaceCore firmware, a Native Instruments Maschine MK2, Maschine Mikro MK2, Maschine Jam, Traktor Kontrol F1 or Komplete Kontrol S-series MK1, a Novation Launchpad, Launchpad S, Launchpad Mini, Launchpad MK2, Launchpad Pro, Launchpad Mini MK3, Launchpad X, Launchpad Pro MK3, Launch Control, Launch Control XL, Launch Control 3, Launch Control XL 3 or a pair of Dicers, or the pads and knobs of a Launchkey MK2, Launchkey MK3, Launchkey MK4, Launchkey Mini MK3, Launchkey Mini MK4 or first-generation Launchkey Mini or the pads, buttons, knobs and faders of an SL MkIII, an Akai APC mini, APC mini MK2, APC40, APC40 MKII, APC20, APC Key 25, APC Key 25 MK2, MIDImix, LPD8 or Fire, the pads, buttons, knobs and screen of an Akai MPK mini IV or MPK mini Plus II, the transport buttons of a first Akai MPK mini Plus, the pads, buttons and encoders of an Ableton Push (first generation) or Push 2, a Behringer X-Touch Mini, X-Touch One, BCR2000 or BCF2000, a KORG nanoKONTROL2, nanoKONTROL Studio or padKONTROL, an Arturia BeatStep, MiniLab 3 or KeyLab Essential mk3, a DJ TechTools Midi Fighter Twister, Midi Fighter Spectra or Midi Fighter 64, an Intech Studio Grid module or a PreSonus ATOM, ATOM SQ, FaderPort, FaderPort 2, FaderPort 8 or FaderPort 16, a Faderfox EC4, a Livid Instruments Base or Base II, an Allen & Heath Xone:K2, an Intuitive Instruments Exquis, the pads, buttons, knobs and faders of an M-Audio Oxygen Pro 25, 49, 61 or Mini or Hammer 88 Pro, an iCON Platform M+, Platform M or Platform X+ extender or an iCON QCon Pro X, QCon Pro XS1, QCon Pro G2 or QCon EX G2, an iCON P1-Nano, a Zoom R16 or R24 recorder or a Mackie MCU Pro and its XT Pro extenders as a control surface, over USB MIDI, a TourBox Elite or Neo, a Cooler Master MasterHub's modules, a 3Dconnexion SpaceMouse, SpaceNavigator or SpacePilot, a QMK keyboard or macropad on Vial firmware, a Yamaha CC121MK2, an Xbox controller, a PlayStation DualShock 4, DualSense, DualSense Edge or Access controller, a GameSir Cyclone 2, the OLED of a SteelSeries Apex keyboard, Sony Buzz! quiz buzzers, a programmable PrehKeyTec POS keyboard, a DJI RC-N1 drone remote, a monome grid or arc, the keys of a Wooting analog keyboard, light the lamps of a keyboard, mouse or light strip with Windows Dynamic Lighting (HID LampArray), or use a MacBook Pro Touch Bar. Label and colour each key, including touch strips and small screens, and make a key ask an agent a saved prompt. Every press also raises an app event that workflows and plugin hooks can react to. Layouts stay on this computer; a key that asks an agent goes through the Approvals inbox unless you turned that off.",
+  "author": {
+    "name": "Ryu",
+    "url": "https://ryuhq.com"
+  },
+  "homepage": "https://github.com/amajorai/ryu-decks",
+  "repository": "https://github.com/amajorai/ryu-decks",
+  "keywords": [
+    "stream deck",
+    "elgato",
+    "ulanzi",
+    "d200",
+    "work louder",
+    "creator micro",
+    "codex micro",
+    "loupedeck",
+    "razer stream controller",
+    "mirabox",
+    "ajazz",
+    "touch bar",
+    "macro pad",
+    "control deck",
+    "hotkeys"
+  ],
+  "extensions": {
+    "com.ryuhq.ryu": {
+      "id": "@ryu/decks",
+      "displayName": "Decks"
+    }
+  }
+}
